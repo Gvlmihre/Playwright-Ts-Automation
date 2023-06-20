@@ -16,6 +16,7 @@ class FormsPage {
     stateField: Locator;
     cityField: Locator;
     submitBtn: Locator;
+    closeBtn: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -29,6 +30,7 @@ class FormsPage {
         this.stateField = page.locator('#state')
         this.cityField = page.locator('#city')
         this.submitBtn = page.locator('#submit.btn.btn-primary')
+        this.closeBtn = page.locator('button#closeLargeModal')
     }
 
     async submitPracticeForm(firstName: string, lastName: string, email: string,
@@ -59,8 +61,6 @@ class FormsPage {
 
         await expect(this.page.locator('#example-modal-sizes-title-lg')).toHaveText('Thanks for submitting the form');
         console.log('Verified the thanks message')
-
-
     }
 
     async takeElementScreenShot(locator: string) {
@@ -71,6 +71,8 @@ class FormsPage {
 
         await this.page.locator(locator).screenshot({ path: `./screenshots/screenshot+${timestamp}.png` });
         console.log('Screenshot has taken successfully!')
+
+        await this.closeBtn.click({ force: true })
     }
 }
 
